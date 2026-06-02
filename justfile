@@ -26,3 +26,7 @@ test-js:
 
 check-js:
     npm run --prefix js check
+
+publish-js:
+    npm run --prefix js build
+    npm publish --prefix js
