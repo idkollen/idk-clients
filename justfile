@@ -12,3 +12,8 @@ test-rs:
 
 check-rs:
     cargo check --all-features --manifest-path rust/Cargo.toml
+    cargo clippy --all-features --manifest-path rust/Cargo.toml
+    cargo fmt --check --manifest-path rust/Cargo.toml
+
+publish-rs:
+    cargo publish --manifest-path rust/Cargo.toml
