@@ -30,3 +30,17 @@ check-js:
 publish-js:
     npm run --prefix js build
     npm publish --prefix js
+
+build-py:
+    py/.venv/bin/python -m build py/
+
+test-py:
+    echo "No tests yet"
+
+check-py:
+    py/.venv/bin/python -m py_compile py/idkollen_client/_client.py
+
+publish-py:
+    py/.venv/bin/pip install build twine -q
+    py/.venv/bin/python -m build py/
+    py/.venv/bin/twine upload py/dist/*

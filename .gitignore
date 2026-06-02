@@ -9,3 +9,6 @@ jvm/local.properties
 # JavaScript
 js/node_modules/
 js/dist/
+
+# Python
+py/.venv
