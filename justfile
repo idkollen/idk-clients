@@ -1,8 +1,8 @@
-build: build-rs build-js
+build: build-rs build-jvm build-js build-py
 
-test: test-rs test-js
+test: test-rs test-jvm test-js test-py
 
-check: check-rs check-js
+check: check-rs check-jvm check-js check-py
 
 build-rs:
     cargo build --all-features --manifest-path rust/Cargo.toml
@@ -17,6 +17,15 @@ check-rs:
 
 publish-rs:
     cargo publish --manifest-path rust/Cargo.toml
+
+build-jvm:
+    gradle --project-dir jvm build
+
+test-jvm:
+    gradle --project-dir jvm test
+
+check-jvm:
+    gradle --project-dir jvm compileJava compileKotlin
 
 build-js:
     npm run --prefix js build
