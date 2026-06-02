@@ -1,0 +1,11 @@
+# Rust
+rust/target/
+
+# JVM
+jvm/build/
+jvm/.gradle/
+jvm/local.properties
+
+# JavaScript
+js/node_modules/
+js/dist/
