@@ -1,10 +1,10 @@
-build: build-rs build-jvm build-js build-py build-go build-php
+build: build-rs build-jvm build-js build-py build-go build-php build-cs
 
-test: test-rs test-jvm test-js test-py test-go test-php
+test: test-rs test-jvm test-js test-py test-go test-php test-cs
 
-check: check-rs check-jvm check-js check-py check-go check-php
+check: check-rs check-jvm check-js check-py check-go check-php check-cs
 
-publish: publish-rs publish-jvm publish-js publish-py publish-php
+publish: publish-rs publish-jvm publish-js publish-py publish-php publish-cs
 
 gen-doc: gen-doc-rs gen-doc-jvm gen-doc-js gen-doc-py
 
@@ -97,3 +97,15 @@ check-php:
 
 publish-php:
     # tag release and push; Packagist auto-syncs from GitHub
+
+build-cs:
+    dotnet build csharp/Idkollen.Client.slnx
+
+test-cs:
+    dotnet test csharp/Idkollen.Client.slnx
+
+check-cs:
+    dotnet build csharp/Idkollen.Client.slnx --no-restore /warnaserror
+
+publish-cs:
+    dotnet pack csharp/src/Idkollen.Client/Idkollen.Client.csproj -c Release

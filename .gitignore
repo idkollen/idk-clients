@@ -16,3 +16,9 @@ py/.venv
 # PHP
 php/vendor/
 php/.phpunit.cache/
+
+# C# / .NET
+csharp/bin/
+csharp/obj/
+csharp/**/bin/
+csharp/**/obj/
