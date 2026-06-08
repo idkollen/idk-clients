@@ -1,10 +1,10 @@
-build: build-rs build-jvm build-js build-py build-go
+build: build-rs build-jvm build-js build-py build-go build-php
 
-test: test-rs test-jvm test-js test-py test-go
+test: test-rs test-jvm test-js test-py test-go test-php
 
-check: check-rs check-jvm check-js check-py check-go
+check: check-rs check-jvm check-js check-py check-go check-php
 
-publish: publish-rs publish-jvm publish-js publish-py
+publish: publish-rs publish-jvm publish-js publish-py publish-php
 
 gen-doc: gen-doc-rs gen-doc-jvm gen-doc-js gen-doc-py
 
@@ -23,8 +23,8 @@ publish-rs:
     cargo publish --manifest-path rust/Cargo.toml
 
 gen-doc-rs:
+    rm -rf docs/rs
     cargo doc --no-deps --all-features --manifest-path rust/Cargo.toml --target-dir docs/rs
-    mv docs/rs/doc/idkollen_client/ docs/rs/
 
 build-jvm:
     gradle --project-dir jvm build
@@ -85,3 +85,15 @@ check-go:
 
 gen-doc-go:
     # pkg.go.dev serves docs automatically on publish
+
+build-php:
+    composer --working-dir=php install
+
+test-php:
+    composer --working-dir=php test
+
+check-php:
+    composer --working-dir=php check
+
+publish-php:
+    # tag release and push; Packagist auto-syncs from GitHub

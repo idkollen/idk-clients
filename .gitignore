@@ -12,3 +12,7 @@ js/dist/
 
 # Python
 py/.venv
+
+# PHP
+php/vendor/
+php/.phpunit.cache/
