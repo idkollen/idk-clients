@@ -4,6 +4,10 @@ test: test-rs test-jvm test-js test-py
 
 check: check-rs check-jvm check-js check-py
 
+publish: publish-rs publish-jvm publish-js publish-py
+
+gen-doc: gen-doc-rs gen-doc-jvm gen-doc-js gen-doc-py
+
 build-rs:
     cargo build --all-features --manifest-path rust/Cargo.toml
 
@@ -18,6 +22,9 @@ check-rs:
 publish-rs:
     cargo publish --manifest-path rust/Cargo.toml
 
+gen-doc-rs:
+    cargo doc --no-deps --all-features --manifest-path rust/Cargo.toml
+
 build-jvm:
     gradle --project-dir jvm build
 
@@ -26,6 +33,13 @@ test-jvm:
 
 check-jvm:
     gradle --project-dir jvm compileJava compileKotlin
+
+publish-jvm:
+
+gen-doc-jvm:
+    gradle --project-dir jvm :core:javadoc
+    rm -rf docs/jvm
+    cp -r jvm/core/build/docs/javadoc docs/jvm
 
 build-js:
     npm run --prefix js build
@@ -40,16 +54,21 @@ publish-js:
     npm run --prefix js build
     npm publish --prefix js
 
+gen-doc-js:
+    npm run --prefix js gen:doc
+
 build-py:
-    py/.venv/bin/python -m build py/
+    uv build --directory py
 
 test-py:
-    echo "No tests yet"
+    uv run --directory py --extra dev pytest
 
 check-py:
-    py/.venv/bin/python -m py_compile py/idkollen_client/_client.py
+    uv run --directory py python -m py_compile idkollen_client/_client.py
 
 publish-py:
-    py/.venv/bin/pip install build twine -q
-    py/.venv/bin/python -m build py/
-    py/.venv/bin/twine upload py/dist/*
+    uv build --directory py
+    uv publish --directory py
+
+gen-doc-py:
+    uv run --directory py --extra dev python -m pdoc -o ../docs/py idkollen_client
