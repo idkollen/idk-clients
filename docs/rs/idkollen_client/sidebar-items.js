@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["Environment","IdkollenError","WaitError"],"mod":["models"],"struct":["IdkollenBlockingClient","IdkollenClient","IdkollenClientBuilder","PollOptions"]};
