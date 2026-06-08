@@ -30,6 +30,7 @@ Individual recipes are available per language (`just build-rs`, `just test-jvm`,
 
 | Directory | Language      | Documentation | 
 |-----------|---------------|---------------|
+| `go/`     | Go            | [Link](/go)   |
 | `js/`     | TypeScript/JS | [Link](/js)   |
 | `jvm/`    | Java + Kotlin | [Link](/jvm)  |
 | `py/`     | Python        | [Link](/py)   |

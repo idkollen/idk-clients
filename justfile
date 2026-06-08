@@ -1,8 +1,8 @@
-build: build-rs build-jvm build-js build-py
+build: build-rs build-jvm build-js build-py build-go
 
-test: test-rs test-jvm test-js test-py
+test: test-rs test-jvm test-js test-py test-go
 
-check: check-rs check-jvm check-js check-py
+check: check-rs check-jvm check-js check-py check-go
 
 publish: publish-rs publish-jvm publish-js publish-py
 
@@ -23,7 +23,8 @@ publish-rs:
     cargo publish --manifest-path rust/Cargo.toml
 
 gen-doc-rs:
-    cargo doc --no-deps --all-features --manifest-path rust/Cargo.toml
+    cargo doc --no-deps --all-features --manifest-path rust/Cargo.toml --target-dir docs/rs
+    mv docs/rs/doc/idkollen_client/ docs/rs/
 
 build-jvm:
     gradle --project-dir jvm build
@@ -72,3 +73,15 @@ publish-py:
 
 gen-doc-py:
     uv run --directory py --extra dev python -m pdoc -o ../docs/py idkollen_client
+
+build-go:
+    go -C go build ./...
+
+test-go:
+    go -C go test ./...
+
+check-go:
+    go -C go vet ./...
+
+gen-doc-go:
+    # pkg.go.dev serves docs automatically on publish
