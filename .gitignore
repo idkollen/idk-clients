@@ -12,6 +12,8 @@ js/dist/
 
 # Python
 py/.venv
+py/**/__pycache__/
+*.pyc
 
 # PHP
 php/vendor/
@@ -32,3 +34,15 @@ dart/build/
 swift/.build/
 swift/.swiftpm/
 swift/Package.resolved
+
+# Ruby
+ruby/Gemfile.lock
+ruby/.bundle/
+ruby/vendor/bundle/
+ruby/*.gem
+
+# IDE
+.idea/
+
+# Stray rustdoc build artifacts (see gen-doc-rs)
+docs/rs/debug/

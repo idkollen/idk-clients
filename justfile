@@ -1,10 +1,10 @@
-build: build-rs build-jvm build-js build-py build-go build-php build-cs build-dart build-swift
+build: build-rs build-jvm build-js build-py build-go build-php build-cs build-dart build-swift build-rb
 
-test: test-rs test-jvm test-js test-py test-go test-php test-cs test-dart test-swift
+test: test-rs test-jvm test-js test-py test-go test-php test-cs test-dart test-swift test-rb
 
-check: check-rs check-jvm check-js check-py check-go check-php check-cs check-dart check-swift
+check: check-rs check-jvm check-js check-py check-go check-php check-cs check-dart check-swift check-rb
 
-publish: publish-rs publish-jvm publish-js publish-py publish-php publish-cs publish-dart
+publish: publish-rs publish-js publish-py publish-php publish-cs publish-dart publish-rb
 
 gen-doc: gen-doc-rs gen-doc-jvm gen-doc-js gen-doc-py
 
@@ -23,8 +23,9 @@ publish-rs:
     cargo publish --manifest-path rust/Cargo.toml
 
 gen-doc-rs:
+    cargo doc --no-deps --all-features --manifest-path rust/Cargo.toml
     rm -rf docs/rs
-    cargo doc --no-deps --all-features --manifest-path rust/Cargo.toml --target-dir docs/rs
+    cp -r rust/target/doc docs/rs
 
 build-jvm:
     gradle --project-dir jvm build
@@ -35,14 +36,13 @@ test-jvm:
 check-jvm:
     gradle --project-dir jvm compileJava compileKotlin
 
-publish-jvm:
-
 gen-doc-jvm:
     gradle --project-dir jvm :core:javadoc
     rm -rf docs/jvm
     cp -r jvm/core/build/docs/javadoc docs/jvm
 
 build-js:
+    npm install --prefix js
     npm run --prefix js build
 
 test-js:
@@ -65,7 +65,7 @@ test-py:
     uv run --directory py --extra dev pytest
 
 check-py:
-    uv run --directory py python -m py_compile idkollen_client/_client.py
+    uv run --directory py python -m compileall -q idkollen_client
 
 publish-py:
     uv build --directory py
@@ -130,3 +130,16 @@ test-swift:
 
 check-swift:
     swift build --package-path swift -Xswiftc -warnings-as-errors
+
+build-rb:
+    cd ruby && bundle install
+
+test-rb:
+    cd ruby && bundle exec rake test
+
+check-rb:
+    cd ruby && ruby -wc lib/idkollen/client.rb
+
+publish-rb:
+    cd ruby && gem build idkollen-client.gemspec
+    cd ruby && gem push idkollen-client-*.gem
