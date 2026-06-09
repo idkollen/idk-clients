@@ -1,10 +1,10 @@
-build: build-rs build-jvm build-js build-py build-go build-php build-cs
+build: build-rs build-jvm build-js build-py build-go build-php build-cs build-dart build-swift
 
-test: test-rs test-jvm test-js test-py test-go test-php test-cs
+test: test-rs test-jvm test-js test-py test-go test-php test-cs test-dart test-swift
 
-check: check-rs check-jvm check-js check-py check-go check-php check-cs
+check: check-rs check-jvm check-js check-py check-go check-php check-cs check-dart check-swift
 
-publish: publish-rs publish-jvm publish-js publish-py publish-php publish-cs
+publish: publish-rs publish-jvm publish-js publish-py publish-php publish-cs publish-dart
 
 gen-doc: gen-doc-rs gen-doc-jvm gen-doc-js gen-doc-py
 
@@ -109,3 +109,24 @@ check-cs:
 
 publish-cs:
     dotnet pack csharp/src/Idkollen.Client/Idkollen.Client.csproj -c Release
+
+build-dart:
+    cd dart && dart pub get
+
+test-dart:
+    cd dart && dart test
+
+check-dart:
+    cd dart && dart analyze
+
+publish-dart:
+    cd dart && dart pub publish
+
+build-swift:
+    swift build --package-path swift
+
+test-swift:
+    swift test --package-path swift
+
+check-swift:
+    swift build --package-path swift -Xswiftc -warnings-as-errors

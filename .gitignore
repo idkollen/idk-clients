@@ -22,3 +22,13 @@ csharp/bin/
 csharp/obj/
 csharp/**/bin/
 csharp/**/obj/
+
+# Dart
+dart/.dart_tool/
+dart/.packages
+dart/build/
+
+# Swift
+swift/.build/
+swift/.swiftpm/
+swift/Package.resolved
